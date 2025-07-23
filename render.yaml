@@ -1,0 +1,39 @@
+# Render Configuration File
+# This file helps Render detect and configure your service automatically
+
+# Build configuration
+build:
+  commands:
+    - yarn install
+    - yarn build
+
+# Start configuration  
+start:
+  command: yarn start
+
+# Environment
+env:
+  - key: NODE_ENV
+    value: production
+    
+# Health check
+healthCheck:
+  path: /health
+  
+# Service configuration
+services:
+  - type: web
+    name: next-gen-portfolio-api
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: yarn install && yarn build
+    startCommand: yarn start
+    healthCheckPath: /health
+    
+# Database
+databases:
+  - name: portfolio-db
+    databaseName: portfolio_db
+    user: portfolio_user
+    plan: free
