@@ -163,9 +163,11 @@ CREATE TRIGGER set_timestamp_users BEFORE UPDATE ON users FOR EACH ROW EXECUTE P
    - **New +** → **Web Service**
    - Connect: `mohansagark/next-gen-portfolio-api`
    - **Name**: `next-gen-portfolio-api`
-   - **Build Command**: `yarn install && yarn build`
+   - **Build Command**: `./build.sh` (or `corepack enable && yarn install && yarn build`)
    - **Start Command**: `yarn start`
    - **Plan**: **Free**
+
+> **⚠️ Important**: This project uses Yarn 4.6.0 which requires Corepack. The `build.sh` script automatically enables Corepack. If you see Yarn version errors, make sure to use the provided build command.
 
 2. **Set Environment Variables in Render**:
 ```env
@@ -306,3 +308,31 @@ curl -X POST $API_URL/api/v1/auth/register \
 ---
 
 **Supabase + Render = Perfect free hosting for your portfolio! 🚀**
+
+## 🔧 Troubleshooting
+
+### Yarn Version Error on Render
+
+If you see this error:
+```
+error This project's package.json defines "packageManager": "yarn@4.6.0". However the current global version of Yarn is 1.22.22.
+```
+
+**Solution**: Use the correct build command that enables Corepack:
+- **Build Command**: `./build.sh` 
+- **Alternative**: `corepack enable && yarn install && yarn build`
+
+### Database Connection Issues
+
+If you get database connection errors:
+1. **Check DATABASE_URL format**: Should be `postgresql://postgres:password@db.ref.supabase.co:5432/postgres`
+2. **Verify Supabase project is active**: Check your Supabase dashboard
+3. **Confirm password**: Make sure you're using the correct database password
+
+### Environment Variables Not Set
+
+Common missing variables:
+- `DATABASE_URL` - Critical for database connection
+- `NODE_ENV=production` - Required for production mode
+- `JWT_SECRET` - Required for authentication
+- `ALLOWED_ORIGIN` - Required for CORS

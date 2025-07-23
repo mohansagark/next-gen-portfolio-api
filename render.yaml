@@ -4,6 +4,7 @@
 # Build configuration
 build:
   commands:
+    - corepack enable
     - yarn install
     - yarn build
 
@@ -27,7 +28,7 @@ services:
     runtime: node
     plan: free
     region: oregon
-    buildCommand: yarn install && yarn build
+    buildCommand: ./build.sh
     startCommand: yarn start
     healthCheckPath: /health
     

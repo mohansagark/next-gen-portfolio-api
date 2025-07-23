@@ -22,7 +22,7 @@ Deploy your Portfolio API with **Supabase database + Render hosting** - complete
 ### 4. Deploy to Render
 - Go to [render.com](https://render.com) → **New Web Service**
 - Connect: `mohansagark/next-gen-portfolio-api`
-- Build: `yarn install && yarn build`
+- Build: `./build.sh` (enables modern Yarn support)  
 - Start: `yarn start`
 - **Plan: Free**
 
@@ -67,6 +67,15 @@ curl -X POST https://next-gen-portfolio-api.onrender.com/api/v1/auth/register \
 4. **Monitor usage** in both dashboards
 
 **Done! Your portfolio API is live with a database that never expires! 🎉**
+
+## 🔧 Troubleshooting
+
+**Yarn Error on Render?** 
+If you see "packageManager yarn@4.6.0" error:
+- Use build command: `./build.sh` 
+- Or: `corepack enable && yarn install && yarn build`
+
+**Need Help?** Check `SUPABASE_DEPLOYMENT.md` for detailed troubleshooting.
 
 ---
 
