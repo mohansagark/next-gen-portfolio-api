@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Education {
+  id          String   @id @default(cuid())
+  institution String
+  degree      String
+  field       String?
+  startDate   DateTime
+  endDate     DateTime?
+  description String?
+  grade       String?
+  location    String?
+  logoUrl     String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("education")
+}
+
+model Project {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  longDescription String?
+  technologies Json
+  liveUrl      String?
+  githubUrl    String?
+  imageUrl     String?
+  images       Json?
+  startDate    DateTime
+  endDate      DateTime?
+  status       String   @default("completed") // completed, in-progress, planned
+  featured     Boolean  @default(false)
+  category     String?
+  order        Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("projects")
+}
+
+model Experience {
+  id           String   @id @default(cuid())
+  company      String
+  position     String
+  location     String?
+  startDate    DateTime
+  endDate      DateTime?
+  description  String
+  technologies Json?
+  achievements Json?
+  companyUrl   String?
+  logoUrl      String?
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("experience")
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  phone     String?
+  status    String   @default("unread") // unread, read, replied
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contacts")
+}

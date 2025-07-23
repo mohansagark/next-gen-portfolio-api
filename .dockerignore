@@ -1,0 +1,12 @@
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Nginx
+nginx.conf
+ssl/
+
+# Logs
+logs/
+*.log
