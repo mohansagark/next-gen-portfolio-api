@@ -1,0 +1,70 @@
+{
+  "name": "next-gen-portfolio-api",
+  "version": "1.0.0",
+  "description": "Modern, production-grade backend API for portfolio website with modular architecture, comprehensive CRUD operations, Swagger documentation, and free deployment with Supabase + Render",
+  "main": "build/index.js",
+  "packageManager": "yarn@4.6.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "yarn ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node build/index.js",
+    "render-build": "npm install -g corepack && corepack enable && yarn install && yarn build",
+    "migrate": "flyway migrate",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "swagger": "npx yaml2json ./src/docs/swagger.yaml > ./swagger.json",
+    "prisma:generate": "prisma generate",
+    "prisma:studio": "prisma studio"
+  },
+  "keywords": [
+    "portfolio",
+    "api",
+    "typescript",
+    "express",
+    "postgresql",
+    "supabase",
+    "render",
+    "jwt",
+    "authentication",
+    "swagger",
+    "rest-api"
+  ],
+  "author": "Mohan Sagar",
+  "license": "MIT",
+  "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/express-rate-limit": "^6.0.0",
+    "@types/helmet": "^4.0.0",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.11.17",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "prisma": "^5.9.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5",
+    "ts-node-dev": "^2.0.0"
+  }
+}

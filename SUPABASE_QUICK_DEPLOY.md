@@ -22,7 +22,10 @@ Deploy your Portfolio API with **Supabase database + Render hosting** - complete
 ### 4. Deploy to Render
 - Go to [render.com](https://render.com) → **New Web Service**
 - Connect: `mohansagark/next-gen-portfolio-api`
-- Build: `./build.sh` (enables modern Yarn support)  
+- **Build Command** (choose one):
+  - `./build.sh` (recommended)
+  - `yarn render-build` 
+  - `corepack enable && yarn install && yarn build`
 - Start: `yarn start`
 - **Plan: Free**
 
@@ -70,10 +73,17 @@ curl -X POST https://next-gen-portfolio-api.onrender.com/api/v1/auth/register \
 
 ## 🔧 Troubleshooting
 
-**Yarn Error on Render?** 
-If you see "packageManager yarn@4.6.0" error:
-- Use build command: `./build.sh` 
-- Or: `corepack enable && yarn install && yarn build`
+**Yarn Error on Render? Try these build commands in order:**
+
+1. **Option 1**: `./build.sh`
+2. **Option 2**: `yarn render-build`
+3. **Option 3**: `corepack enable && yarn install && yarn build`
+4. **Option 4**: `npm install -g corepack && corepack enable && yarn install && yarn build`
+
+**Still not working?** 
+- Check that you're using the new build command, not `yarn install && yarn build`
+- Verify your Render service is set to use the updated build command
+- Try triggering a fresh deployment after changing the build command
 
 **Need Help?** Check `SUPABASE_DEPLOYMENT.md` for detailed troubleshooting.
 

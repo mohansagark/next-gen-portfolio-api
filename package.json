@@ -8,6 +8,7 @@
     "dev": "yarn ts-node src/index.ts",
     "build": "tsc",
     "start": "node build/index.js",
+    "render-build": "npm install -g corepack && corepack enable && yarn install && yarn build",
     "migrate": "flyway migrate",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
