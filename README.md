@@ -1,6 +1,6 @@
 # Portfolio API 🚀
 
-Modern, production-grade backend API for portfolio website with modular architecture, comprehensive CRUD operations, Swagger documentation, and easy Railway deployment.
+Modern, production-grade backend API for portfolio website with modular architecture, comprehensive CRUD operations, Swagger documentation, and free deployment with Supabase + Render.
 
 ## 📋 Table of Contents
 
@@ -13,7 +13,7 @@ Modern, production-grade backend API for portfolio website with modular architec
 - [Database Setup](#database-setup)
 - [API Documentation](#api-documentation)
 - [Docker Deployment](#docker-deployment)
-- [Render Deployment](#render-deployment)
+- [Supabase + Render Deployment](#supabase--render-deployment)
 - [Development](#development)
 - [API Endpoints](#api-endpoints)
 - [Deployment Guides](#deployment-guides)
@@ -31,7 +31,7 @@ Modern, production-grade backend API for portfolio website with modular architec
 - **Database Management**: Prisma ORM + Flyway SQL migrations
 - **Security**: Helmet, CORS, rate limiting, input sanitization
 - **Docker Support**: Full containerization with Docker Compose
-- **Render Ready**: One-click deployment to Render
+- **Supabase + Render Ready**: Free deployment with persistent database
 - **TypeScript**: Full type safety and IntelliSense support
 - **Error Handling**: Comprehensive error handling and logging
 - **Health Checks**: Built-in health monitoring endpoints
@@ -41,12 +41,12 @@ Modern, production-grade backend API for portfolio website with modular architec
 
 - **Runtime**: Node.js 18+ with TypeScript
 - **Framework**: Express.js
-- **Database**: PostgreSQL with Prisma ORM
+- **Database**: PostgreSQL with Supabase (free persistent database)
 - **Migrations**: Flyway for versioned SQL migrations
 - **Documentation**: Swagger/OpenAPI 3.0
 - **Security**: Helmet, CORS, express-rate-limit
 - **Package Manager**: Yarn
-- **Deployment**: Render, Docker
+- **Deployment**: Supabase + Render (completely free)
 - **Development**: ESLint, Prettier, ts-node-dev
 
 ## 📁 Project Structure
@@ -139,8 +139,8 @@ The API will be available at `http://localhost:3000`
 Create a `.env` file in the root directory:
 
 ```env
-# Database
-DATABASE_URL="postgresql://username:password@localhost:5432/portfolio_db"
+# Database (Supabase - never expires!)
+DATABASE_URL="postgresql://postgres:your-password@db.your-ref.supabase.co:5432/postgres"
 
 # Server
 PORT=3000
@@ -253,30 +253,43 @@ docker build -t portfolio-api .
 docker run -p 3000:3000 --env-file .env portfolio-api
 ```
 
-## 🎨 Render Deployment
+## 🚀 Supabase + Render Deployment
 
-### Automatic Deployment (Recommended)
+### Perfect Free Tier Combination
 
-1. **Connect your GitHub repository to Render**
-2. **Create PostgreSQL database on Render (free tier)**
-3. **Set environment variables in Render dashboard**
-4. **Deploy automatically on push to main branch**
+**Why Supabase + Render?**
+- **Supabase**: Free PostgreSQL database (500MB, **never expires!**)
+- **Render**: Free web hosting (750 hours/month)
+- **Total Cost**: **$0/month forever** 🎉
 
-### Required Render Environment Variables
+### Quick Setup
 
-```
-DATABASE_URL=postgresql://...  # From Render PostgreSQL service
-ALLOWED_ORIGIN=https://devmohan.in
+1. **Create Supabase project** at [supabase.com](https://supabase.com)
+2. **Set up database schema** using provided SQL
+3. **Deploy to Render** with your GitHub repo
+4. **Configure environment variables** with Supabase connection
+
+### Required Environment Variables
+
+```env
+# Supabase Database (never expires!)
+DATABASE_URL=postgresql://postgres:[PASSWORD]@db.[REF].supabase.co:5432/postgres
+
+# Production Settings
 NODE_ENV=production
+ALLOWED_ORIGIN=https://yourportfolio.com
+
+# JWT Secrets (provided)
 JWT_SECRET=your-production-secret
 JWT_REFRESH_SECRET=your-refresh-secret
 ```
 
-### Why Render?
-- **Free Tier**: 750 hours/month (perfect for portfolio projects)
-- **Free PostgreSQL**: 1GB database included
-- **Zero Configuration**: Auto-detects Node.js apps
-- **Automatic HTTPS**: SSL certificates included
+### Advantages Over Other Solutions
+- **Database Never Gets Deleted** (unlike Render's 30-day limit)
+- **500MB Free Storage** (perfect for portfolio data)
+- **Beautiful Dashboard** for database management
+- **Automatic Backups** included
+- **Real-time Features** available if needed later
 
 ## 💻 Development
 
@@ -436,7 +449,7 @@ Ready to deploy your portfolio API? We've created comprehensive guides for each 
 
 - **[📋 DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md)** - Step-by-step deployment checklist
 - **[🐙 GITHUB_SETUP.md](./GITHUB_SETUP.md)** - GitHub repository setup instructions  
-- **[🎨 RENDER_DEPLOYMENT.md](./RENDER_DEPLOYMENT.md)** - Detailed Render deployment guide
+- **[🚀 SUPABASE_DEPLOYMENT.md](./SUPABASE_DEPLOYMENT.md)** - Detailed Supabase + Render guide
 - **[🔐 AUTH_GUIDE.md](./AUTH_GUIDE.md)** - Authentication system usage guide
 
 ### 🔑 Production Configuration Keys
@@ -445,7 +458,7 @@ Your production deployment needs these environment variables:
 
 | Variable | Required | Purpose |
 |----------|----------|---------|
-| `DATABASE_URL` | ✅ Critical | PostgreSQL connection (auto-generated by Render) |
+| `DATABASE_URL` | ✅ Critical | Supabase PostgreSQL connection (never expires) |
 | `JWT_SECRET` | ✅ Critical | Access token signing key (32+ chars) |
 | `JWT_REFRESH_SECRET` | ✅ Critical | Refresh token signing key (32+ chars) |
 | `ALLOWED_ORIGIN` | ✅ Critical | CORS policy (your frontend domain) |
@@ -454,8 +467,8 @@ Your production deployment needs these environment variables:
 ### ⚡ Quick Deploy
 
 1. **Push to GitHub** → Follow [GITHUB_SETUP.md](./GITHUB_SETUP.md)
-2. **Deploy to Render** → Follow [RENDER_DEPLOYMENT.md](./RENDER_DEPLOYMENT.md)
-3. **Configure Environment** → Use the provided production secrets
+2. **Deploy with Supabase** → Follow [SUPABASE_DEPLOYMENT.md](./SUPABASE_DEPLOYMENT.md)
+3. **Configure Environment** → Use Supabase connection string
 4. **Test & Go Live** → Your API will be live at `https://your-app.onrender.com`
 
 ## 🤝 Contributing
@@ -475,7 +488,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Express.js](https://expressjs.com/) - Fast, unopinionated web framework
 - [Prisma](https://www.prisma.io/) - Next-generation Node.js and TypeScript ORM
 - [Flyway](https://flywaydb.org/) - Version control for your database
-- [Render](https://render.com/) - Deploy instantly from GitHub
+- [Supabase](https://supabase.com/) - Open source Firebase alternative with PostgreSQL
 - [Swagger](https://swagger.io/) - API documentation
 
 ---
