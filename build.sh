@@ -18,6 +18,15 @@ npx prisma generate
 echo "🔨 Building TypeScript..."
 npm run build
 
+# Copy docs folder to build directory
+echo "📚 Copying documentation files..."
+if [ -d "src/docs" ]; then
+    cp -r src/docs build/
+    echo "✅ Documentation files copied successfully"
+else
+    echo "⚠️  No docs folder found in src/"
+fi
+
 # Verify build output
 if [ -d "build" ] && [ -f "build/index.js" ]; then
     echo "✅ Build completed successfully!"
