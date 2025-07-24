@@ -27,10 +27,23 @@ const API_VERSION = process.env.API_VERSION || 'v1';
 app.use(helmet());
 
 // CORS configuration
+const allowedOrigins = [
+  process.env.ALLOWED_ORIGIN || 'https://devmohan.in',
+  'https://next-gen-portfolio-api.onrender.com', // Allow Swagger UI
+  /^https:\/\/.*\.onrender\.com$/, // Allow any Render domain
+];
+
+// Add localhost for development
+if (process.env.NODE_ENV === 'development') {
+  allowedOrigins.push('http://localhost:3000', 'http://127.0.0.1:3000');
+}
+
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGIN || 'https://devmohan.in',
+  origin: allowedOrigins,
   credentials: true,
   optionsSuccessStatus: 200,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
 }));
 
 // Rate limiting
