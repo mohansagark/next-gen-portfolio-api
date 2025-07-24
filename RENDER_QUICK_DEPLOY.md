@@ -17,8 +17,8 @@ Deploy your Portfolio API to Render's free tier in 10 minutes!
 - **New +** → **Web Service**
 - Connect: `mohansagark/next-gen-portfolio-api`
 - Name: `next-gen-portfolio-api`
-- Build: `yarn install && yarn build`
-- Start: `yarn start`
+- Build: `./build.sh`
+- Start: `node build/index.js`
 - Plan: **Free**
 
 ### 4. Set Environment Variables

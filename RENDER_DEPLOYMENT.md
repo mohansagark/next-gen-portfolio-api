@@ -38,8 +38,8 @@
    - **Branch**: `main`
    - **Root Directory**: `.` (leave empty)
    - **Runtime**: `Node`
-   - **Build Command**: `yarn install && yarn build`
-   - **Start Command**: `yarn start`
+   - **Build Command**: `./build.sh`
+   - **Start Command**: `node build/index.js`
    - **Plan**: **Free** (512MB RAM, sleeps after 15min inactivity)
 
 ### Step 4: Set Environment Variables
@@ -173,6 +173,31 @@ curl -X POST $RENDER_URL/api/v1/auth/register \
 # Access API documentation
 # Visit: https://next-gen-portfolio-api.onrender.com/api-docs
 ```
+
+## 🔧 Troubleshooting
+
+### Yarn PackageManager Error
+If you see error:
+```
+error This project's package.json defines "packageManager": "yarn@4.6.0". 
+However the current global version of Yarn is 1.22.22.
+```
+
+**Solution**: Use npm-based commands:
+- **Build Command**: `./build.sh` (not `yarn install && yarn build`)
+- **Start Command**: `node build/index.js` (not `yarn start`)
+
+Our build script automatically uses npm which is more memory-efficient for Render's free tier.
+
+### Memory Issues (>8GB)
+If build fails with "Ran out of memory":
+- ✅ Use `./build.sh` (memory-optimized npm build)
+- ❌ Avoid `yarn install` (uses 8GB+ with Yarn 4.x PnP)
+
+### Build Fails
+1. Check that `build.sh` is executable in your repo
+2. Verify environment variables are set correctly
+3. Check build logs for specific TypeScript errors
 
 ---
 
