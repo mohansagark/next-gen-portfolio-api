@@ -23,7 +23,7 @@ export class AuthMiddleware {
    */
   authenticate = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const authHeader = req.headers.authorization;
+      const authHeader = (req as Request).headers.authorization;
 
       if (!authHeader) {
         res.status(401).json(
@@ -85,7 +85,7 @@ export class AuthMiddleware {
    */
   optionalAuth = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const authHeader = req.headers.authorization;
+      const authHeader = (req as Request).headers.authorization;
 
       if (authHeader) {
         const token = authHeader.split(' ')[1];
