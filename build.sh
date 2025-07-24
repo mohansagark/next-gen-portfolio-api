@@ -8,7 +8,7 @@ rm -rf node_modules build
 
 # Install dependencies using npm (memory efficient)
 echo "📦 Installing dependencies with npm..."
-npm ci --omit=dev --silent
+npm ci --silent
 
 # Generate Prisma client
 echo "🔧 Generating Prisma client..."
