@@ -22,8 +22,8 @@ Deploy your Portfolio API with **Supabase database + Render hosting** - complete
 ### 4. Deploy to Render
 - Go to [render.com](https://render.com) → **New Web Service**
 - Connect: `mohansagark/next-gen-portfolio-api`
-- **Build Command** (choose one):
-  - `./build.sh` (recommended)
+- **Build Command** (⚠️ Use EXACTLY as shown):
+  - `./build.sh` (recommended - note the `./` prefix!)
   - `yarn render-build` 
   - `corepack enable && yarn install && yarn build`
 - Start: `yarn start`
@@ -73,15 +73,18 @@ curl -X POST https://next-gen-portfolio-api.onrender.com/api/v1/auth/register \
 
 ## 🔧 Troubleshooting
 
+**"build.sh: command not found" Error?**
+You used `build.sh` instead of `./build.sh` - the `./` is crucial!
+
 **Yarn Error on Render? Try these build commands in order:**
 
-1. **Option 1**: `./build.sh`
+1. **Option 1**: `./build.sh` (⚠️ Must include `./` prefix!)
 2. **Option 2**: `yarn render-build`
 3. **Option 3**: `corepack enable && yarn install && yarn build`
 4. **Option 4**: `npm install -g corepack && corepack enable && yarn install && yarn build`
 
 **Still not working?** 
-- Check that you're using the new build command, not `yarn install && yarn build`
+- Double-check you're using `./build.sh` (with dot-slash), not just `build.sh`
 - Verify your Render service is set to use the updated build command
 - Try triggering a fresh deployment after changing the build command
 

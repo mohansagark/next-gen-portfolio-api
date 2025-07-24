@@ -163,11 +163,11 @@ CREATE TRIGGER set_timestamp_users BEFORE UPDATE ON users FOR EACH ROW EXECUTE P
    - **New +** → **Web Service**
    - Connect: `mohansagark/next-gen-portfolio-api`
    - **Name**: `next-gen-portfolio-api`
-   - **Build Command**: `./build.sh` (or `corepack enable && yarn install && yarn build`)
+   - **Build Command**: `./build.sh` (⚠️ Must include `./` prefix!)
    - **Start Command**: `yarn start`
    - **Plan**: **Free**
 
-> **⚠️ Important**: This project uses Yarn 4.6.0 which requires Corepack. The `build.sh` script automatically enables Corepack. If you see Yarn version errors, make sure to use the provided build command.
+> **⚠️ Important**: Use `./build.sh` (with dot-slash), not just `build.sh`. The `./` tells Render to look for the script in the current directory.
 
 2. **Set Environment Variables in Render**:
 ```env
@@ -321,6 +321,19 @@ error This project's package.json defines "packageManager": "yarn@4.6.0". Howeve
 **Solution**: Use the correct build command that enables Corepack:
 - **Build Command**: `./build.sh` 
 - **Alternative**: `corepack enable && yarn install && yarn build`
+
+### Build Script Not Found Error
+
+If you see this error:
+```
+bash: line 1: build.sh: command not found
+```
+
+**Solution**: You forgot the `./` prefix! Use:
+- **Correct**: `./build.sh`
+- **Wrong**: `build.sh`
+
+The `./` tells Render to look for the script in the current directory.
 
 ### Database Connection Issues
 
