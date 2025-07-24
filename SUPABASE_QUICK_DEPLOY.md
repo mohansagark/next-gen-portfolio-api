@@ -5,21 +5,25 @@ Deploy your Portfolio API with **Supabase database + Render hosting** - complete
 ## ⚡ 10-Minute Setup
 
 ### 1. Create Supabase Database
+
 - Go to [supabase.com](https://supabase.com) → **New Project**
 - Name: `portfolio-api-db`
 - Generate strong password 🔑
 - **Plan: Free** (500MB, never expires!)
 
 ### 2. Set Up Database Schema
+
 - In Supabase dashboard → **SQL Editor**
 - Copy & paste the complete schema from `SUPABASE_DEPLOYMENT.md`
 - Click **Run** ✅
 
 ### 3. Get Connection String
+
 - **Settings** → **Database** → **Connection string**
 - Copy the URI: `postgresql://postgres:[PASSWORD]@db.[REF].supabase.co:5432/postgres`
 
 ### 4. Deploy to Render
+
 - Go to [render.com](https://render.com) → **New Web Service**
 - Connect: `mohansagark/next-gen-portfolio-api`
 - **Build Command** (⚠️ Use EXACTLY as shown):
@@ -30,6 +34,7 @@ Deploy your Portfolio API with **Supabase database + Render hosting** - complete
 - **Plan: Free**
 
 ### 5. Set Environment Variables
+
 ```env
 DATABASE_URL=postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
 NODE_ENV=production
@@ -39,6 +44,7 @@ ALLOWED_ORIGIN=https://yourfrontenddomain.com
 ```
 
 ### 6. Deploy & Test!
+
 Your API will be live at: `https://next-gen-portfolio-api.onrender.com`
 
 ```bash
@@ -53,14 +59,14 @@ curl -X POST https://next-gen-portfolio-api.onrender.com/api/v1/auth/register \
 
 ## 🎯 Why Supabase + Render?
 
-| Feature | Benefit |
-|---------|---------|
+| Feature                    | Benefit                         |
+| -------------------------- | ------------------------------- |
 | **Database Never Expires** | ✅ Unlike Render's 30-day limit |
-| **500MB Free Storage** | ✅ Perfect for portfolio data |
-| **Beautiful Dashboard** | ✅ Manage data visually |
-| **Automatic Backups** | ✅ Your data is always safe |
-| **Real-time Ready** | ✅ Add live features later |
-| **True PostgreSQL** | ✅ Full SQL capabilities |
+| **500MB Free Storage**     | ✅ Perfect for portfolio data   |
+| **Beautiful Dashboard**    | ✅ Manage data visually         |
+| **Automatic Backups**      | ✅ Your data is always safe     |
+| **Real-time Ready**        | ✅ Add live features later      |
+| **True PostgreSQL**        | ✅ Full SQL capabilities        |
 
 ## 🚀 Next Steps
 
@@ -88,7 +94,8 @@ Use start command: `node build/index.js` instead of `yarn start`
 2. **Option 2**: `npm ci && npx prisma generate && npm run build`
 3. **Option 3**: `yarn render-build` (if you prefer Yarn)
 
-**Still not working?** 
+**Still not working?**
+
 - Double-check you're using `./build.sh` (with dot-slash), not just `build.sh`
 - Use start command `node build/index.js` (simple and efficient)
 - Verify your Render service is set to use the updated build command

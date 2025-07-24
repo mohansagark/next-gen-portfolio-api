@@ -82,6 +82,7 @@ RATE_LIMIT_MAX_REQUESTS=50
 ### 1. Update package.json Scripts
 
 No changes needed! Your current scripts work perfectly:
+
 ```json
 {
   "scripts": {
@@ -95,6 +96,7 @@ No changes needed! Your current scripts work perfectly:
 ### 2. Port Configuration
 
 Your code already handles dynamic ports correctly:
+
 ```typescript
 const PORT = process.env.PORT || 3000;
 ```
@@ -107,38 +109,43 @@ Render automatically sets `PORT=10000`, which your app will use.
 
 ## 🆚 Render vs Railway Comparison
 
-| Feature | Render (Free) | Railway (Paid) |
-|---------|---------------|----------------|
-| **Cost** | Free (750 hrs/month) | $5+/month |
-| **Database** | PostgreSQL 1GB free | PostgreSQL paid |
-| **Sleeping** | Sleeps after 15min | Always on |
-| **Build Time** | ~2-3 minutes | ~1-2 minutes |
-| **Custom Domains** | ✅ Free | ✅ Free |
-| **Auto HTTPS** | ✅ Yes | ✅ Yes |
-| **GitHub Integration** | ✅ Yes | ✅ Yes |
+| Feature                | Render (Free)        | Railway (Paid)  |
+| ---------------------- | -------------------- | --------------- |
+| **Cost**               | Free (750 hrs/month) | $5+/month       |
+| **Database**           | PostgreSQL 1GB free  | PostgreSQL paid |
+| **Sleeping**           | Sleeps after 15min   | Always on       |
+| **Build Time**         | ~2-3 minutes         | ~1-2 minutes    |
+| **Custom Domains**     | ✅ Free              | ✅ Free         |
+| **Auto HTTPS**         | ✅ Yes               | ✅ Yes          |
+| **GitHub Integration** | ✅ Yes               | ✅ Yes          |
 
 ## 🔧 Render-Specific Configuration
 
 ### Build Settings (Auto-detected)
+
 - **Build Command**: `yarn install && yarn build`
 - **Start Command**: `yarn start`
 - **Node Version**: 18+ (auto-detected from engines in package.json)
 
 ### Health Checks
+
 Render will automatically ping your `/health` endpoint to keep the service running.
 
 ### Cold Starts
+
 Free tier services sleep after 15 minutes of inactivity. First request after sleep takes ~10-30 seconds to wake up.
 
 ## 🚨 Important Render Notes
 
 ### Free Tier Limitations:
+
 1. **Sleeps after 15 minutes** of no requests
 2. **750 hours/month** limit (about 25 days)
 3. **512MB RAM** limit
 4. **Cold starts** on first request after sleep
 
 ### Database Connection:
+
 - Use the **External Database URL** from Render PostgreSQL
 - Format: `postgresql://user:password@host:port/database`
 
@@ -177,24 +184,30 @@ curl -X POST $RENDER_URL/api/v1/auth/register \
 ## 🔧 Troubleshooting
 
 ### Yarn PackageManager Error
+
 If you see error:
+
 ```
-error This project's package.json defines "packageManager": "yarn@4.6.0". 
+error This project's package.json defines "packageManager": "yarn@4.6.0".
 However the current global version of Yarn is 1.22.22.
 ```
 
 **Solution**: Use npm-based commands:
+
 - **Build Command**: `./build.sh` (not `yarn install && yarn build`)
 - **Start Command**: `node build/index.js` (not `yarn start`)
 
 Our build script automatically uses npm which is more memory-efficient for Render's free tier.
 
 ### Memory Issues (>8GB)
+
 If build fails with "Ran out of memory":
+
 - ✅ Use `./build.sh` (memory-optimized npm build)
 - ❌ Avoid `yarn install` (uses 8GB+ with Yarn 4.x PnP)
 
 ### Build Fails
+
 1. Check that `build.sh` is executable in your repo
 2. Verify environment variables are set correctly
 3. Check build logs for specific TypeScript errors

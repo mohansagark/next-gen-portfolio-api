@@ -5,15 +5,18 @@ Deploy your Portfolio API to Render's free tier in 10 minutes!
 ## 🚀 Super Quick Setup
 
 ### 1. Create Render Account
+
 - Go to [render.com](https://render.com) → Sign up with GitHub
 
 ### 2. Create Database
+
 - Dashboard → **New +** → **PostgreSQL**
 - Name: `portfolio-db`
 - Plan: **Free**
 - **Copy the External Database URL** 📋
 
-### 3. Create Web Service  
+### 3. Create Web Service
+
 - **New +** → **Web Service**
 - Connect: `mohansagark/next-gen-portfolio-api`
 - Name: `next-gen-portfolio-api`
@@ -22,6 +25,7 @@ Deploy your Portfolio API to Render's free tier in 10 minutes!
 - Plan: **Free**
 
 ### 4. Set Environment Variables
+
 ```env
 DATABASE_URL=<paste-your-database-url-here>
 NODE_ENV=production
@@ -31,6 +35,7 @@ ALLOWED_ORIGIN=https://yourfrontenddomain.com
 ```
 
 ### 5. Deploy!
+
 Click **Create Web Service** → Your API will be live at:
 `https://next-gen-portfolio-api.onrender.com`
 

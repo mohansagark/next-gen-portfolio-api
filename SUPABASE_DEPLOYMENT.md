@@ -3,6 +3,7 @@
 ## Why Supabase + Render?
 
 **Perfect Free Tier Combination:**
+
 - **Supabase**: Free PostgreSQL database (500MB, never expires!)
 - **Render**: Free web hosting (750 hours/month)
 - **Total Cost**: $0/month forever 🎉
@@ -171,6 +172,7 @@ CREATE TRIGGER set_timestamp_users BEFORE UPDATE ON users FOR EACH ROW EXECUTE P
 > **⚠️ Memory Optimized**: Now uses npm instead of Yarn 4.x to avoid memory issues on Render's free tier (8GB limit).
 
 2. **Set Environment Variables in Render**:
+
 ```env
 # 🔴 CRITICAL - Supabase Database
 DATABASE_URL=postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
@@ -231,16 +233,19 @@ curl -X POST $API_URL/api/v1/auth/register \
 ## 🎯 Supabase Dashboard Features
 
 ### Database Management
+
 - **Table Editor**: Visual interface to manage data
 - **SQL Editor**: Run custom queries
 - **API Docs**: Auto-generated REST API documentation
 
 ### Monitoring
+
 - **Usage Statistics**: Track database usage
 - **Logs**: Real-time database logs
 - **Performance**: Query performance insights
 
 ### Backup & Security
+
 - **Automatic Backups**: Point-in-time recovery
 - **Row Level Security**: Advanced security policies
 - **API Keys**: Secure database access
@@ -248,12 +253,14 @@ curl -X POST $API_URL/api/v1/auth/register \
 ## 🔒 Security Best Practices
 
 ### Supabase Security
+
 1. **Enable Row Level Security** (if needed later)
 2. **Use environment variables** for database URLs
 3. **Rotate database password** periodically
 4. **Monitor database usage** in dashboard
 
 ### API Security
+
 1. **JWT tokens** for authentication
 2. **Rate limiting** enabled
 3. **CORS** properly configured
@@ -262,37 +269,42 @@ curl -X POST $API_URL/api/v1/auth/register \
 ## 💡 Pro Tips
 
 ### Database Optimization
+
 - **Use indexes** for frequently queried fields (already included in schema)
 - **Monitor query performance** in Supabase dashboard
 - **Use connection pooling** (built into Supabase)
 
 ### Development Workflow
+
 1. **Test locally** with your Supabase database
 2. **Use Supabase dashboard** to inspect data
 3. **Deploy to Render** automatically on git push
 4. **Monitor logs** in both Render and Supabase
 
 ### Scaling Considerations
+
 - **Free tier limits**: 500MB storage, 50K MAU
 - **Upgrade path**: $25/month for 8GB + more features
 - **Connection limits**: 60 concurrent (free tier)
 
 ## 🆚 Cost Comparison
 
-| Service | Free Tier | Paid Tier |
-|---------|-----------|-----------|
-| **Supabase DB** | 500MB, 50K MAU, Never expires | $25/month (8GB) |
+| Service            | Free Tier                           | Paid Tier            |
+| ------------------ | ----------------------------------- | -------------------- |
+| **Supabase DB**    | 500MB, 50K MAU, Never expires       | $25/month (8GB)      |
 | **Render Hosting** | 750 hours/month, Sleeps after 15min | $7/month (always on) |
-| **Total** | **$0/month** | $32/month |
+| **Total**          | **$0/month**                        | $32/month            |
 
 ## 🚨 Important Notes
 
 ### Free Tier Limitations:
+
 - **Supabase**: 500MB storage, 50,000 monthly active users
 - **Render**: Sleeps after 15 minutes, 750 hours/month
 - **Cold Starts**: ~10-30 seconds after sleep
 
 ### Production Considerations:
+
 - **Database never expires** with Supabase ✅
 - **Automatic backups** included ✅
 - **SSL connections** enabled by default ✅
@@ -315,22 +327,26 @@ curl -X POST $API_URL/api/v1/auth/register \
 ### Yarn Version Error on Render
 
 If you see this error:
+
 ```
 error This project's package.json defines "packageManager": "yarn@4.6.0". However the current global version of Yarn is 1.22.22.
 ```
 
 **Solution**: Use the correct build command that enables Corepack:
-- **Build Command**: `./build.sh` 
+
+- **Build Command**: `./build.sh`
 - **Alternative**: `corepack enable && yarn install && yarn build`
 
 ### Build Script Not Found Error
 
 If you see this error:
+
 ```
 bash: line 1: build.sh: command not found
 ```
 
 **Solution**: You forgot the `./` prefix! Use:
+
 - **Correct**: `./build.sh`
 - **Wrong**: `build.sh`
 
@@ -339,12 +355,14 @@ The `./` tells Render to look for the script in the current directory.
 ### Yarn PnP Runtime Error
 
 If you see this error during `yarn start`:
+
 ```
 Error: Required package missing from disk
 Missing package: express@npm:5.1.0
 ```
 
 **Solution**: Use a different start command:
+
 - **Instead of**: `yarn start`
 - **Use**: `node build/index.js`
 
@@ -353,11 +371,13 @@ This bypasses Yarn PnP issues that can occur on Render.
 ### Memory Issues (Ran out of memory)
 
 If you see this error:
+
 ```
 Ran out of memory (used over 8GB) while building your code
 ```
 
 **Solution**: The build script now uses npm instead of Yarn 4.x:
+
 - **Build Command**: `./build.sh` (uses npm - memory efficient)
 - **Alternative**: `npm ci && npx prisma generate && npm run build`
 - **Start Command**: `node build/index.js`
@@ -367,6 +387,7 @@ Yarn 4.x with PnP can use excessive memory during builds on Render's free tier.
 ### Database Connection Issues
 
 If you get database connection errors:
+
 1. **Check DATABASE_URL format**: Should be `postgresql://postgres:password@db.ref.supabase.co:5432/postgres`
 2. **Verify Supabase project is active**: Check your Supabase dashboard
 3. **Confirm password**: Make sure you're using the correct database password
@@ -374,6 +395,7 @@ If you get database connection errors:
 ### Environment Variables Not Set
 
 Common missing variables:
+
 - `DATABASE_URL` - Critical for database connection
 - `NODE_ENV=production` - Required for production mode
 - `JWT_SECRET` - Required for authentication
