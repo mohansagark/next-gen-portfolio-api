@@ -23,10 +23,10 @@ Deploy your Portfolio API with **Supabase database + Render hosting** - complete
 - Go to [render.com](https://render.com) → **New Web Service**
 - Connect: `mohansagark/next-gen-portfolio-api`
 - **Build Command** (⚠️ Use EXACTLY as shown):
-  - `./build.sh` (recommended - note the `./` prefix!)
-  - `yarn render-build` 
-  - `corepack enable && yarn install && yarn build`
-- **Start**: `yarn node build/index.js` (avoids PnP issues)
+  - `./build.sh` (recommended - uses npm for memory efficiency)
+  - `npm ci && npx prisma generate && npm run build` (alternative)
+  - `yarn render-build` (if you want to use Yarn)
+- **Start**: `node build/index.js` (simple and efficient)
 - **Plan: Free**
 
 ### 5. Set Environment Variables
@@ -76,19 +76,21 @@ curl -X POST https://next-gen-portfolio-api.onrender.com/api/v1/auth/register \
 **"build.sh: command not found" Error?**
 You used `build.sh` instead of `./build.sh` - the `./` is crucial!
 
+**"Ran out of memory (used over 8GB)" Error?**
+The build now uses npm instead of Yarn 4.x to avoid memory issues. Use: `./build.sh`
+
 **"Required package missing from disk" Error?**
-Use start command: `yarn node build/index.js` instead of `yarn start`
+Use start command: `node build/index.js` instead of `yarn start`
 
-**Yarn Error on Render? Try these build commands in order:**
+**Build Options (in order of preference):**
 
-1. **Option 1**: `./build.sh` (⚠️ Must include `./` prefix!)
-2. **Option 2**: `yarn render-build`
-3. **Option 3**: `corepack enable && yarn install && yarn build`
-4. **Option 4**: `npm install -g corepack && corepack enable && yarn install && yarn build`
+1. **Option 1**: `./build.sh` (⚠️ Memory optimized with npm!)
+2. **Option 2**: `npm ci && npx prisma generate && npm run build`
+3. **Option 3**: `yarn render-build` (if you prefer Yarn)
 
 **Still not working?** 
 - Double-check you're using `./build.sh` (with dot-slash), not just `build.sh`
-- Use start command `yarn node build/index.js` instead of `yarn start`
+- Use start command `node build/index.js` (simple and efficient)
 - Verify your Render service is set to use the updated build command
 - Try triggering a fresh deployment after changing the build command
 

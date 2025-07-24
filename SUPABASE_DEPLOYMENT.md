@@ -164,11 +164,11 @@ CREATE TRIGGER set_timestamp_users BEFORE UPDATE ON users FOR EACH ROW EXECUTE P
    - Connect: `mohansagark/next-gen-portfolio-api`
    - **Name**: `next-gen-portfolio-api`
    - **Build Command**: `./build.sh` (⚠️ Must include `./` prefix!)
-   - **Start Command**: `yarn node build/index.js`
+   - **Start Command**: `node build/index.js`
    - **Plan**: **Free**
 
 > **⚠️ Important**: Use `./build.sh` (with dot-slash), not just `build.sh`. The `./` tells Render to look for the script in the current directory.
-> **⚠️ Start Command**: Use `yarn node build/index.js` instead of just `yarn start` to avoid PnP issues.
+> **⚠️ Memory Optimized**: Now uses npm instead of Yarn 4.x to avoid memory issues on Render's free tier (8GB limit).
 
 2. **Set Environment Variables in Render**:
 ```env
@@ -346,9 +346,23 @@ Missing package: express@npm:5.1.0
 
 **Solution**: Use a different start command:
 - **Instead of**: `yarn start`
-- **Use**: `yarn node build/index.js`
+- **Use**: `node build/index.js`
 
 This bypasses Yarn PnP issues that can occur on Render.
+
+### Memory Issues (Ran out of memory)
+
+If you see this error:
+```
+Ran out of memory (used over 8GB) while building your code
+```
+
+**Solution**: The build script now uses npm instead of Yarn 4.x:
+- **Build Command**: `./build.sh` (uses npm - memory efficient)
+- **Alternative**: `npm ci && npx prisma generate && npm run build`
+- **Start Command**: `node build/index.js`
+
+Yarn 4.x with PnP can use excessive memory during builds on Render's free tier.
 
 ### Database Connection Issues
 
