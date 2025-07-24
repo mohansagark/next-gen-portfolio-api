@@ -21,59 +21,67 @@ export class AuthMiddleware {
   /**
    * Middleware to verify JWT token and authenticate user
    */
-  authenticate = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
+  authenticate = async (
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     try {
       const authHeader = (req as Request).headers.authorization;
 
       if (!authHeader) {
-        res.status(401).json(
-          ResponseFormatter.unauthorized('Access token is required')
-        );
+        res
+          .status(401)
+          .json(ResponseFormatter.unauthorized('Access token is required'));
         return;
       }
 
       const token = authHeader.split(' ')[1]; // Bearer <token>
 
       if (!token) {
-        res.status(401).json(
-          ResponseFormatter.unauthorized('Access token is required')
-        );
+        res
+          .status(401)
+          .json(ResponseFormatter.unauthorized('Access token is required'));
         return;
       }
 
       const user = await this.authService.verifyToken(token);
 
       if (!user) {
-        res.status(401).json(
-          ResponseFormatter.unauthorized('Invalid or expired token')
-        );
+        res
+          .status(401)
+          .json(ResponseFormatter.unauthorized('Invalid or expired token'));
         return;
       }
 
       req.user = user;
       next();
     } catch (error) {
-      res.status(401).json(
-        ResponseFormatter.unauthorized('Invalid or expired token')
-      );
+      res
+        .status(401)
+        .json(ResponseFormatter.unauthorized('Invalid or expired token'));
     }
   };
 
   /**
    * Middleware to check if user has admin role
    */
-  requireAdmin = (req: AuthenticatedRequest, res: Response, next: NextFunction): void => {
+  requireAdmin = (
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+  ): void => {
     if (!req.user) {
-      res.status(401).json(
-        ResponseFormatter.unauthorized('Authentication required')
-      );
+      res
+        .status(401)
+        .json(ResponseFormatter.unauthorized('Authentication required'));
       return;
     }
 
     if (req.user.role !== 'admin') {
-      res.status(403).json(
-        ResponseFormatter.forbidden('Admin access required')
-      );
+      res
+        .status(403)
+        .json(ResponseFormatter.forbidden('Admin access required'));
       return;
     }
 
@@ -83,7 +91,11 @@ export class AuthMiddleware {
   /**
    * Optional authentication middleware - doesn't fail if no token provided
    */
-  optionalAuth = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
+  optionalAuth = async (
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     try {
       const authHeader = (req as Request).headers.authorization;
 
