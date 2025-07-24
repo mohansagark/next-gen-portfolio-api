@@ -27,30 +27,33 @@ const API_VERSION = process.env.API_VERSION || 'v1';
 app.use(helmet());
 
 // CORS configuration
-const allowedOrigins = [
+const allowedOrigins: (string | RegExp)[] = [
   process.env.ALLOWED_ORIGIN || 'https://devmohan.in',
   'https://next-gen-portfolio-api.onrender.com', // Allow Swagger UI
-  /^https:\/\/.*\.onrender\.com$/, // Allow any Render domain
 ];
 
-// Add localhost for development
+// Add localhost for development (all ports)
 if (process.env.NODE_ENV === 'development') {
-  allowedOrigins.push('http://localhost:3000', 'http://127.0.0.1:3000');
+  allowedOrigins.push(/^http:\/\/localhost:\d+$/, /^http:\/\/127\.0\.0\.1:\d+$/);
 }
 
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true,
-  optionsSuccessStatus: 200,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-}));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+    optionsSuccessStatus: 200,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  })
+);
 
 // Rate limiting
 const rateLimitOptions = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'), // 15 minutes
   max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100'), // limit each IP to 100 requests per windowMs
-  message: ResponseFormatter.error('Too many requests from this IP, please try again later.'),
+  message: ResponseFormatter.error(
+    'Too many requests from this IP, please try again later.'
+  ),
   standardHeaders: true,
   legacyHeaders: false,
 });
@@ -81,12 +84,18 @@ app.get('/health', (req: Request, res: Response) => {
 
 // API Documentation
 try {
-  const swaggerDocument = YAML.load(path.join(__dirname, 'docs', 'swagger.yaml'));
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
-    explorer: true,
-    customCss: '.swagger-ui .topbar { display: none }',
-    customSiteTitle: 'Portfolio API Documentation',
-  }));
+  const swaggerDocument = YAML.load(
+    path.join(__dirname, 'docs', 'swagger.yaml')
+  );
+  app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument, {
+      explorer: true,
+      customCss: '.swagger-ui .topbar { display: none }',
+      customSiteTitle: 'Portfolio API Documentation',
+    })
+  );
 } catch (error) {
   console.error('Failed to load Swagger documentation:', error);
 }
