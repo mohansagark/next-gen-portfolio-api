@@ -15,7 +15,10 @@ fi
 echo "📦 Installing dependencies with Yarn 4.x..."
 yarn install
 
-echo "🔨 Building TypeScript project..."
+echo "� Generating Prisma client..."
+yarn prisma generate
+
+echo "�🔨 Building TypeScript project..."
 yarn build
 
 echo "✅ Build completed successfully!"

@@ -164,10 +164,11 @@ CREATE TRIGGER set_timestamp_users BEFORE UPDATE ON users FOR EACH ROW EXECUTE P
    - Connect: `mohansagark/next-gen-portfolio-api`
    - **Name**: `next-gen-portfolio-api`
    - **Build Command**: `./build.sh` (⚠️ Must include `./` prefix!)
-   - **Start Command**: `yarn start`
+   - **Start Command**: `yarn node build/index.js`
    - **Plan**: **Free**
 
 > **⚠️ Important**: Use `./build.sh` (with dot-slash), not just `build.sh`. The `./` tells Render to look for the script in the current directory.
+> **⚠️ Start Command**: Use `yarn node build/index.js` instead of just `yarn start` to avoid PnP issues.
 
 2. **Set Environment Variables in Render**:
 ```env
@@ -334,6 +335,20 @@ bash: line 1: build.sh: command not found
 - **Wrong**: `build.sh`
 
 The `./` tells Render to look for the script in the current directory.
+
+### Yarn PnP Runtime Error
+
+If you see this error during `yarn start`:
+```
+Error: Required package missing from disk
+Missing package: express@npm:5.1.0
+```
+
+**Solution**: Use a different start command:
+- **Instead of**: `yarn start`
+- **Use**: `yarn node build/index.js`
+
+This bypasses Yarn PnP issues that can occur on Render.
 
 ### Database Connection Issues
 
